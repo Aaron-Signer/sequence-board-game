@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://em0jrs7oo0wv"]
+
+[ext_resource type="Script" path="res://scenes/game/card/card.gd" id="1_l5hhv"]
+[ext_resource type="Texture2D" uid="uid://pygu3wsfrldp" path="res://assets/Cards/J.png" id="2_4vqkv"]
+[ext_resource type="PackedScene" uid="uid://bhagob7t8fdt2" path="res://scenes/game/coin/coin.tscn" id="2_yp3ge"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mrf7c"]
+size = Vector2(139.081, 194.591)
+
+[node name="Card" type="Node2D"]
+rotation = 1.5708
+script = ExtResource("1_l5hhv")
+coin = ExtResource("2_yp3ge")
+
+[node name="CardSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4vqkv")
+
+[node name="Area2D" type="Area2D" parent="."]
+modulate = Color(0.101241, 0.101241, 0.101241, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.0211716, -0.0480155)
+shape = SubResource("RectangleShape2D_mrf7c")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

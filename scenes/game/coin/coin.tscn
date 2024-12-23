@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhagob7t8fdt2"]
+
+[ext_resource type="Texture2D" uid="uid://dnlwnr8m36br0" path="res://assets/coins/Gold Coin 256 x 256.png" id="1_eeugp"]
+
+[node name="Coin" type="Node2D"]
+
+[node name="GoldCoin" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_eeugp")
