@@ -31,9 +31,14 @@ var hand = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GameState.card_played.connect(play_card)
+	
 	for row in 10:
 		for col in 10:
-			deck.append(board[row][col])
+			var temp_val_card = board[row][col]
+			
+			if temp_val_card != "J":
+				deck.append(board[row][col])
 
 	deck.append("DJ")
 	deck.append("DJ")
@@ -69,3 +74,5 @@ func deal_cards():
 		card.position = Vector2(2200 + i*100, 1000)
 		card.rotation = 0
 	
+func play_card(card: Card):
+	print(card.card_val_glob)

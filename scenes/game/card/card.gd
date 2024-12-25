@@ -1,4 +1,4 @@
-extends Node2D
+class_name Card extends Node2D
 
 @onready var card: Sprite2D = $CardSprite
 @export var coin: PackedScene
@@ -10,6 +10,7 @@ var is_board_card:bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GameState.card_played.connect(set_hightlight)
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,7 +58,10 @@ func setup(suit, number):
 
 
 func _on_area_2d_mouse_entered():
-	card.modulate = Color(.5, .5, .5, 1)
+	if loaded_coin != null:
+		card.modulate = Color(1, 0, 0, 1)
+	else:
+		card.modulate = Color(.5, .5, .5, 1)
 
 func _on_area_2d_mouse_exited():
 	card.modulate = Color(1, 1, 1, 1)
@@ -69,4 +73,16 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			loaded_coin = coin.instantiate()
 			add_child(loaded_coin)
 			loaded_coin.position = Vector2(0,0)
+			
+	elif !is_board_card && event.is_action_pressed("LC"):
+		GameState.card_played.emit(self)
+	
+func set_hightlight(card2: Card):
+	var a = card2.card_val_glob
+	
+	if card_val_glob == card2.card_val_glob && is_board_card && loaded_coin == null:
+		card.modulate = Color(0, 0, 1, 1)
+	else:
+		card.modulate = Color(1, 1, 1, 1)
+
 	
