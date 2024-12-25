@@ -67,21 +67,22 @@ func _on_area_2d_mouse_exited():
 	card.modulate = Color(1, 1, 1, 1)
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
-	if loaded_coin == null && event.is_action_pressed("LC") && is_board_card:
-		print("load coin")
-		if card_val_glob != "J":
+	if event.is_action_pressed("LC") && loaded_coin == null:
+		if is_board_card && card_val_glob != "J":
 			loaded_coin = coin.instantiate()
 			add_child(loaded_coin)
 			loaded_coin.position = Vector2(0,0)
-			
-	elif !is_board_card && event.is_action_pressed("LC"):
-		GameState.card_played.emit(self)
+		elif !is_board_card:
+			GameState.card_played.emit(self)
 	
 func set_hightlight(card2: Card):
 	var a = card2.card_val_glob
 	
-	if card_val_glob == card2.card_val_glob && is_board_card && loaded_coin == null:
-		card.modulate = Color(0, 0, 1, 1)
+	if card_val_glob == card2.card_val_glob && is_board_card:
+		if loaded_coin == null:
+			card.modulate = Color(0, 0, 1, 1)
+		else:
+			card.modulate = Color(1, 0, 0, 1)
 	else:
 		card.modulate = Color(1, 1, 1, 1)
 
