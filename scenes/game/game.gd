@@ -75,4 +75,27 @@ func deal_cards():
 		card.rotation = 0
 	
 func play_card(card: Card):
-	print(card.card_val_glob)
+	if card != null:
+		var c:Card = gcard.instantiate()
+		add_child(c)
+		c.setup2(card.card_val_glob, false)
+		c.position = Vector2(2200 , 700)
+		c.rotation = 0
+		hand.erase(card)
+		draw_hand()
+
+func draw_hand():
+	var temp_hand = hand.duplicate()
+	
+	for i in hand.size():
+		hand[i].queue_free()
+		
+	hand.clear()
+		
+	for i in temp_hand.size():
+		var card = gcard.instantiate()
+		hand.append(card)
+		add_child(card)
+		card.setup2(temp_hand[i].card_val_glob, false)
+		card.position = Vector2(2200 + i*100, 1000)
+		card.rotation = 0
