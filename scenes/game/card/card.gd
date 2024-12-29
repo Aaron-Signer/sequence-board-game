@@ -7,7 +7,7 @@ var loaded_coin:Node2D
 
 var card_val_glob
 var is_board_card:bool = false
-var is_card_played: bool = false
+var played_card: String = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -69,7 +69,7 @@ func _on_area_2d_mouse_exited():
 
 func _on_area_2d_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("LC") && loaded_coin == null:
-		if is_board_card && is_card_played && card_val_glob != "J":
+		if is_board_card && played_card == card_val_glob && card_val_glob != "J":
 			loaded_coin = coin.instantiate()
 			add_child(loaded_coin)
 			loaded_coin.position = Vector2(0,0)
@@ -78,10 +78,9 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			GameState.card_played.emit(self)
 			queue_free()
 	
-func set_hightlight(card2: Card):
-	if card2 != null:
-		is_card_played = true
-		
+func set_hightlight(card2: Card):	
+	if card2 != null:		
+		played_card = card2.card_val_glob
 		if card_val_glob == card2.card_val_glob && is_board_card:
 			if loaded_coin == null:
 				card.modulate = Color(0, 0, 1, 1)
@@ -90,7 +89,7 @@ func set_hightlight(card2: Card):
 		else:
 			card.modulate = Color(1, 1, 1, 1)
 	else:
-		is_card_played = false
+		played_card = ""
 	
 
 
