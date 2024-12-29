@@ -33,21 +33,21 @@ var hand = []
 func _ready():
 	GameState.card_played.connect(play_card)
 	
-	for row in 10:
-		for col in 10:
-			var temp_val_card = board[row][col]
-			
-			if temp_val_card != "J":
-				deck.append(board[row][col])
+	#for row in 10:
+		#for col in 10:
+			#var temp_val_card = board[row][col]
+			#
+			#if temp_val_card != "J":
+				#deck.append(board[row][col])
 
-	deck.append("DJ")
-	deck.append("DJ")
-	deck.append("HJ")
-	deck.append("HJ")
-	deck.append("CJ")
-	deck.append("CJ")
-	deck.append("SJ")
-	deck.append("SJ")
+	deck.append("DJ2E")
+	deck.append("DJ2E")
+	deck.append("HJ1E")
+	deck.append("HJ1E")
+	deck.append("CJ2E")
+	deck.append("CJ2E")
+	deck.append("SJ1E")
+	deck.append("SJ1E")
 	deck.shuffle()
 			
 	for row in 10:
