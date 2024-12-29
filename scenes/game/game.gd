@@ -53,7 +53,7 @@ func _ready():
 	for row in 10:
 		for col in 10:
 			var card = gcard.instantiate()
-			card.position = Vector2(150 + col*200, 150 + row*150)
+			card.position = Vector2(100 + col*140, 100 + row*100)
 			add_child(card)
 			card.setup2(board[row][col], true)
 			
@@ -71,7 +71,7 @@ func deal_cards():
 		add_child(card)
 		card.setup2(card_val, false)
 		hand.append(card)
-		card.position = Vector2(2200 + i*100, 1000)
+		card.position = Vector2(1800, 100 + i*140)
 		card.rotation = 0
 	
 func play_card(card: Card):
@@ -97,7 +97,7 @@ func draw_hand():
 		hand.append(card)
 		add_child(card)
 		card.setup2(temp_hand[i].card_val_glob, false)
-		card.position = Vector2(2200 + i*100, 1000)
+		card.position = Vector2(1800, 100 + i*140)
 		card.rotation = 0
 
 

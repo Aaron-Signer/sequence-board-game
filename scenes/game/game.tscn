@@ -8,10 +8,10 @@ script = ExtResource("1_g3ugw")
 gcard = ExtResource("2_qrekm")
 
 [node name="Button" type="Button" parent="."]
-offset_left = 2626.0
-offset_top = 26.0
-offset_right = 2868.0
-offset_bottom = 98.0
+offset_left = 1444.0
+offset_top = 24.0
+offset_right = 1686.0
+offset_bottom = 96.0
 theme_override_font_sizes/font_size = 46
 text = "Draw Card"
 
