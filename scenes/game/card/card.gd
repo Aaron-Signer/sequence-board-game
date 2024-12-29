@@ -63,7 +63,7 @@ func _on_area_2d_mouse_entered():
 		card.modulate = Color(1, 0, 0, 1)
 	else:
 		card.modulate = Color(.5, .5, .5, 1)
-
+		
 func _on_area_2d_mouse_exited():
 	card.modulate = Color(1, 1, 1, 1)
 
@@ -92,3 +92,7 @@ func set_hightlight(card2: Card):
 	else:
 		is_card_played = false
 	
+
+
+func _on_button_pressed():
+	print("button pressed")

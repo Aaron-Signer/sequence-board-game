@@ -99,3 +99,12 @@ func draw_hand():
 		card.setup2(temp_hand[i].card_val_glob, false)
 		card.position = Vector2(2200 + i*100, 1000)
 		card.rotation = 0
+
+
+func _on_button_pressed():
+	var a = deck.pop_back()
+	var card = gcard.instantiate()
+	add_child(card)
+	card.setup2(a, false)
+	hand.append(card)
+	draw_hand()
