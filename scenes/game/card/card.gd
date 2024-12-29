@@ -3,7 +3,8 @@ class_name Card extends Node2D
 @onready var card: Sprite2D = $CardSprite
 @export var coin: PackedScene
 
-var loaded_coin:Node2D
+var loaded_coin: Coin
+var placeholder_coin: Coin
 
 var card_val_glob
 var is_board_card:bool = false
@@ -74,6 +75,8 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			add_child(loaded_coin)
 			loaded_coin.position = Vector2(0,0)
 			GameState.card_played.emit(null)
+			if placeholder_coin != null:
+				placeholder_coin.queue_free()
 		elif !is_board_card:
 			GameState.card_played.emit(self)
 			queue_free()
@@ -82,18 +85,28 @@ func set_hightlight(card2: Card):
 	if card2 != null:		
 		played_card = card2.card_val_glob
 		if card2.card_val_glob.contains("2E") && loaded_coin == null:
-			card.modulate = Color(0, 0, 1, 1)
+			placeholder_coin = coin.instantiate()
+			add_child(placeholder_coin)
+			placeholder_coin.make_transparent()
+			#card.modulate = Color(0, 0, 1, 1)
 		else:
 			if card_val_glob == card2.card_val_glob && is_board_card:
 				if loaded_coin == null:
-					card.modulate = Color(0, 0, 1, 1)
+					placeholder_coin = coin.instantiate()
+					add_child(placeholder_coin)
+					placeholder_coin.make_transparent()
+					#card.modulate = Color(0, 0, 1, 1)
 				else:
 					card.modulate = Color(1, 0, 0, 1)
 			else:
-				card.modulate = Color(1, 1, 1, 1)
+				if placeholder_coin != null:
+					placeholder_coin.queue_free()
+				#card.modulate = Color(1, 1, 1, 1)
 	else:
 		played_card = ""
-		card.modulate = Color(1, 1, 1, 1)
+		if placeholder_coin != null:
+			placeholder_coin.queue_free()
+		#card.modulate = Color(1, 1, 1, 1)
 	
 
 

@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhagob7t8fdt2"]
+[gd_scene load_steps=3 format=3 uid="uid://bhagob7t8fdt2"]
 
 [ext_resource type="Texture2D" uid="uid://dnlwnr8m36br0" path="res://assets/coins/Gold Coin 256 x 256.png" id="1_eeugp"]
+[ext_resource type="Script" path="res://scenes/game/coin/coin.gd" id="1_vgih1"]
 
 [node name="Coin" type="Node2D"]
 modulate = Color(0.101961, 0.839216, 0.796078, 1)
+script = ExtResource("1_vgih1")
 
 [node name="GoldCoin" type="Sprite2D" parent="."]
 z_index = 1

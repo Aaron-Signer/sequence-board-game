@@ -45,10 +45,11 @@ func _ready():
 	deck.append("HJ1E")
 	deck.append("HJ1E")
 	deck.append("CJ2E")
-	deck.append("CJ2E")
-	deck.append("SJ1E")
 	deck.append("SJ1E")
 	deck.shuffle()
+	deck.append("CJ2E")
+
+	deck.append("SJ1E")
 			
 	for row in 10:
 		for col in 10:
