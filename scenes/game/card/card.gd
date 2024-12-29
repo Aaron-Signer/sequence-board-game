@@ -90,6 +90,7 @@ func set_hightlight(card2: Card):
 			card.modulate = Color(1, 1, 1, 1)
 	else:
 		played_card = ""
+		card.modulate = Color(1, 1, 1, 1)
 	
 
 
