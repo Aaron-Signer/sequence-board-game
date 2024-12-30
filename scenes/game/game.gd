@@ -61,9 +61,10 @@ func _ready():
 	deck.append("DJ2E")
 	deck.append("HJ1E")
 	deck.append("HJ1E")
-	deck.append("CJ2E")
+	#deck.append("CJ2E")
 	deck.append("SJ1E")
 	deck.shuffle()
+	deck.append("CJ2E")
 	deck.append("CJ2E")
 
 	deck.append("SJ1E")
