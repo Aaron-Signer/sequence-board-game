@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://pygu3wsfrldp"
-path="res://.godot/imported/J.png-e6f7b6ac4514547afdc60be3ffe1f2c7.ctex"
+path="res://.godot/imported/J.png-e857e739a6dff18bf4e8253985f05a35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Cards/J.png"
-dest_files=["res://.godot/imported/J.png-e6f7b6ac4514547afdc60be3ffe1f2c7.ctex"]
+source_file="res://assets/cards/J.png"
+dest_files=["res://.godot/imported/J.png-e857e739a6dff18bf4e8253985f05a35.ctex"]
 
 [params]
 

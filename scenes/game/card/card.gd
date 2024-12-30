@@ -75,6 +75,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			add_child(loaded_coin)
 			loaded_coin.position = Vector2(0,0)
 			GameState.card_played.emit(null)
+			
 			if placeholder_coin != null:
 				placeholder_coin.queue_free()
 		elif !is_board_card:
@@ -84,7 +85,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 func set_hightlight(card2: Card):	
 	if card2 != null:		
 		played_card = card2.card_val_glob
-		if card2.card_val_glob.contains("2E") && loaded_coin == null:
+		if card2.card_val_globg.contains("2E") && loaded_coin == null:
 			placeholder_coin = coin.instantiate()
 			add_child(placeholder_coin)
 			placeholder_coin.make_transparent()

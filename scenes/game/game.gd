@@ -1,6 +1,7 @@
 extends Node2D
 
-@export var gcard: PackedScene;
+@export var gcard: PackedScene
+@export var player: PackedScene
 
 var number_grid = [[0, 10, 12, 13, 14, 2, 3, 4, 5, 0],
 					[9, 10, 9, 8, 7, 6, 5, 4, 3, 6],
@@ -25,12 +26,14 @@ var board = [
 					
 var deck = []
 
-var hand = []
-				
-#var card_grid = [[], [], []]
+var player_1: Player = null
+var player_2: Player = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	player_1 = player.instantiate()
+	player_2 = player.instantiate()
+	
 	GameState.card_played.connect(play_card)
 	
 	for row in 10:
@@ -51,12 +54,12 @@ func _ready():
 
 	deck.append("SJ1E")
 			
-	for row in 10:
-		for col in 10:
-			var card = gcard.instantiate()
-			card.position = Vector2(100 + col*140, 100 + row*100)
-			add_child(card)
-			card.setup2(board[row][col], true)
+	#for row in 10:
+		#for col in 10:
+			#var card = gcard.instantiate()
+			#card.position = Vector2(100 + col*140, 100 + row*100)
+			#add_child(card)
+			#card.setup2(board[row][col], true)
 			
 	deal_cards()
 
@@ -69,12 +72,14 @@ func deal_cards():
 	for i in 7:
 		var card_val = deck.pop_back()
 		var card = gcard.instantiate()
-		add_child(card)
 		card.setup2(card_val, false)
-		hand.append(card)
-		card.position = Vector2(1800, 100 + i*140)
-		card.rotation = 0
-	
+		#player_1.add_card_to_hand(card_val)
+		
+		#card_val = deck.pop_back()
+		#var card2 = gcard.instantiate()
+		#card2.setup2(card_val, false)
+		#player_2.add_card_to_hand(card)
+
 func play_card(card: Card):
 	if card != null:
 		var c:Card = gcard.instantiate()
@@ -82,30 +87,15 @@ func play_card(card: Card):
 		c.setup2(card.card_val_glob, false)
 		c.position = Vector2(2200 , 700)
 		c.rotation = 0
-		hand.erase(card)
-		draw_hand()
+		player_1.remove_card_from_hand(card)
+		player_1.draw_hand()
 
-func draw_hand():
-	var temp_hand = hand.duplicate()
-	
-	for i in hand.size():
-		hand[i].queue_free()
-		
-	hand.clear()
-		
-	for i in temp_hand.size():
-		var card = gcard.instantiate()
-		hand.append(card)
-		add_child(card)
-		card.setup2(temp_hand[i].card_val_glob, false)
-		card.position = Vector2(1800, 100 + i*140)
-		card.rotation = 0
+
 
 
 func _on_button_pressed():
 	var a = deck.pop_back()
 	var card = gcard.instantiate()
-	add_child(card)
 	card.setup2(a, false)
-	hand.append(card)
-	draw_hand()
+	player_1.add_card_to_hand(card)
+	player_1.draw_hand()
