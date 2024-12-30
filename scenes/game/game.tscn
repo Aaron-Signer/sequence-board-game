@@ -10,11 +10,19 @@ gcard = ExtResource("2_qrekm")
 player = ExtResource("3_2beca")
 
 [node name="Button" type="Button" parent="."]
-offset_left = 1444.0
-offset_top = 24.0
-offset_right = 1686.0
-offset_bottom = 96.0
+offset_left = 1443.0
+offset_top = 126.0
+offset_right = 1685.0
+offset_bottom = 198.0
 theme_override_font_sizes/font_size = 46
 text = "Draw Card"
+
+[node name="NameLabel" type="RichTextLabel" parent="."]
+offset_left = 1444.0
+offset_top = 45.0
+offset_right = 1668.0
+offset_bottom = 106.0
+theme_override_font_sizes/normal_font_size = 43
+text = "Name"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

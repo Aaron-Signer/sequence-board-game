@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://em0jrs7oo0wv"]
 
 [ext_resource type="Script" path="res://scenes/game/card/card.gd" id="1_l5hhv"]
-[ext_resource type="Texture2D" uid="uid://pygu3wsfrldp" path="res://assets/cards/J.png" id="2_4vqkv"]
+[ext_resource type="Texture2D" uid="uid://pygu3wsfrldp" path="res://assets/Cards/J.png" id="2_4vqkv"]
 [ext_resource type="PackedScene" uid="uid://bhagob7t8fdt2" path="res://scenes/game/coin/coin.tscn" id="2_yp3ge"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mrf7c"]

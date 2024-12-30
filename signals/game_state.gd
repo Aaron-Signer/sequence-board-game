@@ -11,3 +11,5 @@ signal level_selected(level: String)
 
 signal card_played(card: Card)
 signal coin_played()
+
+signal current_player(player: Player)

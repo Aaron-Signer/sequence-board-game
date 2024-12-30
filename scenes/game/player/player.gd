@@ -3,7 +3,8 @@ class_name Player
 
 @export var gcard: PackedScene
 
-var hand = []
+var player_name: String = ""
+var hand: Array[Card] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,3 +38,7 @@ func draw_hand():
 		card.setup2(temp_hand[i].card_val_glob, false)
 		card.position = Vector2(1800, 100 + i*140)
 		card.rotation = 0
+		
+func hide_hand() -> void:
+	for i in hand.size():
+		hand[i].visible = false

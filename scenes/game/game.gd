@@ -2,6 +2,7 @@ extends Node2D
 
 @export var gcard: PackedScene
 @export var player: PackedScene
+@onready var current_player_name_label: RichTextLabel = $NameLabel
 
 var number_grid = [[0, 10, 12, 13, 14, 2, 3, 4, 5, 0],
 					[9, 10, 9, 8, 7, 6, 5, 4, 3, 6],
@@ -29,15 +30,26 @@ var deck = []
 var player_1: Player = null
 var player_2: Player = null
 
+var current_player: Player = null
+
+var player_list:Array = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player_1 = player.instantiate()
-	add_child(player_1)
-	player_2 = player.instantiate()
-	add_child(player_2)
-
 	GameState.card_played.connect(play_card)
+	GameState.current_player.connect(next_player)
 	
+	player_1 = player.instantiate()
+	player_1.player_name = "Aaron"
+	add_child(player_1)
+	
+	player_2 = player.instantiate()
+	player_2.player_name = "Sarah"
+	add_child(player_2)
+	
+	player_list.append(player_1)
+	player_list.append(player_2)
+
 	for row in 10:
 		for col in 10:
 			var temp_val_card = board[row][col]
@@ -64,35 +76,55 @@ func _ready():
 			card.setup2(board[row][col], true)
 			
 	deal_cards()
-	player_1.draw_hand()
+	
+	GameState.current_player.emit(player_1)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 	
+func next_player(player: Player) -> void:
+	current_player = player
+	current_player_name_label.text = current_player.player_name
+	
+	for i in player_list.size():
+		if player_list[i] != current_player:
+			player_list[i].hide_hand()
+	
+	current_player.draw_hand()
+
 func deal_cards():
 	for i in 7:
 		var card_val = deck.pop_back()
 		var card = gcard.instantiate()
 		player_1.add_card_to_hand(card_val)
 
-		#card_val = deck.pop_back()
-		#var card2 = gcard.instantiate()
-		#card2.setup2(card_val, false)
-		#player_2.add_card_to_hand(card)
+		card_val = deck.pop_back()
+		var card2 = gcard.instantiate()
+		player_2.add_card_to_hand(card_val)
 
 func play_card(card: Card):
 	if card != null:
 		var played_card:Card = gcard.instantiate()
 		add_child(played_card)
 		played_card.setup2(card.card_val_glob, false)
-		played_card.position = Vector2(1600 , 200)
+		played_card.position = Vector2(1600 , 350)
 		played_card.rotation = 0
-		player_1.remove_card_from_hand(card)
-		player_1.draw_hand()
+		current_player.remove_card_from_hand(card)
+		current_player.draw_hand()
 
 func _on_button_pressed():
 	var drawn_card_value = deck.pop_back()
-	player_1.add_card_to_hand(drawn_card_value)
-	player_1.draw_hand()
+	current_player.add_card_to_hand(drawn_card_value)
+	current_player.draw_hand()
+	get_next_player()
+	
+func get_next_player() -> void:
+	var current_player_index:int = player_list.find(current_player)
+	current_player_index += 1
+	
+	if current_player_index == player_list.size():
+		current_player_index = 0
+		
+	GameState.current_player.emit(player_list[current_player_index])
