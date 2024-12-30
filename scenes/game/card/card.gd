@@ -13,7 +13,6 @@ var played_card: String = ""
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameState.card_played.connect(set_hightlight)
-	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -23,7 +22,8 @@ func setup2(card_val, is_board_crd):
 	card_val_glob = card_val
 	var path = "res://assets/cards/" + card_val + ".png"
 	var main = load(path)
-	card.texture = main
+	if card != null:
+		card.texture = main
 	is_board_card = is_board_crd
 	
 func setup(suit, number):
@@ -75,6 +75,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			add_child(loaded_coin)
 			loaded_coin.position = Vector2(0,0)
 			GameState.card_played.emit(null)
+			
 			if placeholder_coin != null:
 				placeholder_coin.queue_free()
 		elif !is_board_card:
