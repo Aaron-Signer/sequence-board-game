@@ -12,16 +12,13 @@ var played_card: String = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("ready")
 	GameState.card_played.connect(set_hightlight)
-	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 	
 func setup2(card_val, is_board_crd):
-	print("in setup")
 	card_val_glob = card_val
 	var path = "res://assets/cards/" + card_val + ".png"
 	var main = load(path)
