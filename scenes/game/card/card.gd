@@ -12,6 +12,7 @@ var played_card: String = ""
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("ready")
 	GameState.card_played.connect(set_hightlight)
 	pass # Replace with function body.
 
@@ -20,10 +21,12 @@ func _process(delta):
 	pass
 	
 func setup2(card_val, is_board_crd):
+	print("in setup")
 	card_val_glob = card_val
 	var path = "res://assets/cards/" + card_val + ".png"
 	var main = load(path)
-	card.texture = main
+	if card != null:
+		card.texture = main
 	is_board_card = is_board_crd
 	
 func setup(suit, number):
@@ -85,7 +88,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 func set_hightlight(card2: Card):	
 	if card2 != null:		
 		played_card = card2.card_val_glob
-		if card2.card_val_globg.contains("2E") && loaded_coin == null:
+		if card2.card_val_glob.contains("2E") && loaded_coin == null:
 			placeholder_coin = coin.instantiate()
 			add_child(placeholder_coin)
 			placeholder_coin.make_transparent()
