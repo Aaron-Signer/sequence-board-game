@@ -1,0 +1,9 @@
+Features:
+	
+
+Issues:
+	Can click on discarded cards and play them
+	
+Misc:
+	
+	

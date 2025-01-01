@@ -12,4 +12,6 @@ func _process(delta):
 	pass
 
 func make_transparent():
-	modulate = Color(.102, .839, .796, .6)
+	var transparent_color = Color(modulate)
+	transparent_color.a = .6
+	modulate = transparent_color
