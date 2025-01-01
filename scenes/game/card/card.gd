@@ -12,14 +12,14 @@ var played_card: String = ""
 
 var player: Player = null
 
+var team_1_color: Color = Color(0, 1, 1, 1)
+var team_2_color: Color = Color(1, 0, 0, 1)
+var team_3_color: Color = Color(1, 1, 1, 1)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameState.card_played.connect(set_hightlight)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-	
 func setup2(card_val, is_board_crd):
 	card_val_glob = card_val
 	var path = "res://assets/cards/" + card_val + ".png"
@@ -27,39 +27,6 @@ func setup2(card_val, is_board_crd):
 	if card != null:
 		card.texture = main
 	is_board_card = is_board_crd
-	
-func setup(suit, number):
-	var s
-	var n
-	
-	match suit:
-		"S":
-			s = suit
-		"D":
-			s = suit
-		"C":
-			s = suit
-		"H":
-			s = suit
-		"J":
-			s = "Joker"
-			
-			
-	if number >= 2 && number <= 10:
-		n = str(number)
-	elif number == 12:
-		n = "Q"
-	elif number == 13:
-		n = "K"
-	elif number == 14:
-		n = "A"
-	elif number == 0:
-		n = ""
-		
-	var path = "res://assets/cards/" + s + n + ".png"
-	var main = load(path)
-	card.texture = main
-
 
 func _on_area_2d_mouse_entered():
 	if loaded_coin != null:
@@ -78,10 +45,10 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			loaded_coin.position = Vector2(0,0)
 			
 			if player.team == 1:
-				loaded_coin.modulate = Color(0, 1, 1, 1)
+				loaded_coin.modulate = team_1_color
 				
 			if player.team == 2:
-				loaded_coin.modulate = Color(1, 0, 0, 1)
+				loaded_coin.modulate = team_2_color
 			GameState.card_played.emit(null)
 			
 			if placeholder_coin != null:
@@ -109,10 +76,10 @@ func set_hightlight(player_move: PlayerMove):
 					player = temp_player
 					
 					if player.team == 1:
-						placeholder_coin.modulate = Color(0, 1, 1, 1)
+						placeholder_coin.modulate = team_1_color
 				
 					if player.team == 2:
-						placeholder_coin.modulate = Color(1, 0, 0, 1)
+						placeholder_coin.modulate = team_2_color
 						
 					placeholder_coin.make_transparent()
 
@@ -127,8 +94,3 @@ func set_hightlight(player_move: PlayerMove):
 		if placeholder_coin != null:
 			placeholder_coin.queue_free()
 		#card.modulate = Color(1, 1, 1, 1)
-	
-
-
-func _on_button_pressed():
-	print("button pressed")
