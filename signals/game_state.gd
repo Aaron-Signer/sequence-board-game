@@ -9,7 +9,7 @@ signal navigate_to_main_menu
 signal level_selected(level: String)
 
 
-signal card_played(card: Card)
+signal card_played(player_move: PlayerMove)
 signal coin_played()
 
 signal current_player(player: Player)

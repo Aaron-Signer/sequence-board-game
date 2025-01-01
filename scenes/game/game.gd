@@ -41,10 +41,12 @@ func _ready():
 	
 	player_1 = player.instantiate()
 	player_1.player_name = "Aaron"
+	player_1.team = 1
 	add_child(player_1)
 	
 	player_2 = player.instantiate()
 	player_2.player_name = "Sarah"
+	player_2.team = 2
 	add_child(player_2)
 	
 	player_list.append(player_1)
@@ -98,26 +100,28 @@ func next_player(player: Player) -> void:
 func deal_cards():
 	for i in 7:
 		var card_val = deck.pop_back()
-		var card = gcard.instantiate()
-		player_1.add_card_to_hand(card_val)
+		var card: Card = gcard.instantiate()
+		card.player = player_1
+		player_1.add_card_to_hand(card_val, player_1)
 
 		card_val = deck.pop_back()
-		var card2 = gcard.instantiate()
-		player_2.add_card_to_hand(card_val)
+		var card2: Card = gcard.instantiate()
+		card2.player = player_2
+		player_2.add_card_to_hand(card_val, player_2)
 
-func play_card(card: Card):
-	if card != null:
+func play_card(player_move: PlayerMove):
+	if player_move != null && player_move.card != null:
 		var played_card:Card = gcard.instantiate()
 		add_child(played_card)
-		played_card.setup2(card.card_val_glob, false)
+		played_card.setup2(player_move.card.card_val_glob, false)
 		played_card.position = Vector2(1600 , 350)
 		played_card.rotation = 0
-		current_player.remove_card_from_hand(card)
+		current_player.remove_card_from_hand(player_move.card)
 		current_player.draw_hand()
 
 func _on_button_pressed():
 	var drawn_card_value = deck.pop_back()
-	current_player.add_card_to_hand(drawn_card_value)
+	current_player.add_card_to_hand(drawn_card_value, current_player)
 	current_player.draw_hand()
 	get_next_player()
 	

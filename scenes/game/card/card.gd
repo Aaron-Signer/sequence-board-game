@@ -10,6 +10,8 @@ var card_val_glob
 var is_board_card:bool = false
 var played_card: String = ""
 
+var player: Player = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameState.card_played.connect(set_hightlight)
@@ -74,29 +76,38 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 			loaded_coin = coin.instantiate()
 			add_child(loaded_coin)
 			loaded_coin.position = Vector2(0,0)
+			
+			if player.team == 1:
+				loaded_coin.modulate = Color(0, 1, 1, 1)
+				
+			if player.team == 2:
+				loaded_coin.modulate = Color(1, 0, 0, 1)
 			GameState.card_played.emit(null)
 			
 			if placeholder_coin != null:
 				placeholder_coin.queue_free()
 		elif !is_board_card:
-			GameState.card_played.emit(self)
+			var player_move = PlayerMove.new(player, self)
+			GameState.card_played.emit(player_move)
 			queue_free()
 	
-func set_hightlight(card2: Card):	
-	if card2 != null:		
-		played_card = card2.card_val_glob
-		if card2.card_val_glob.contains("2E") && loaded_coin == null:
+func set_hightlight(player_move: PlayerMove):
+	if player_move != null:
+		var temp_card: Card = player_move.card
+		var temp_player: Player = player_move.player
+		player = temp_player
+		played_card = temp_card.card_val_glob
+		
+		if played_card.contains("2E") && loaded_coin == null:
 			placeholder_coin = coin.instantiate()
 			add_child(placeholder_coin)
 			placeholder_coin.make_transparent()
-			#card.modulate = Color(0, 0, 1, 1)
 		else:
-			if card_val_glob == card2.card_val_glob && is_board_card:
+			if card_val_glob == temp_card.card_val_glob && is_board_card:
 				if loaded_coin == null:
 					placeholder_coin = coin.instantiate()
 					add_child(placeholder_coin)
 					placeholder_coin.make_transparent()
-					#card.modulate = Color(0, 0, 1, 1)
 				else:
 					card.modulate = Color(1, 0, 0, 1)
 			else:
