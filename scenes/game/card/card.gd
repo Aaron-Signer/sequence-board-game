@@ -95,7 +95,6 @@ func set_hightlight(player_move: PlayerMove):
 	if player_move != null:
 		var temp_card: Card = player_move.card
 		var temp_player: Player = player_move.player
-		player = temp_player
 		played_card = temp_card.card_val_glob
 		
 		if played_card.contains("2E") && loaded_coin == null:
@@ -107,7 +106,16 @@ func set_hightlight(player_move: PlayerMove):
 				if loaded_coin == null:
 					placeholder_coin = coin.instantiate()
 					add_child(placeholder_coin)
+					player = temp_player
+					
+					if player.team == 1:
+						placeholder_coin.modulate = Color(0, 1, 1, 1)
+				
+					if player.team == 2:
+						placeholder_coin.modulate = Color(1, 0, 0, 1)
+						
 					placeholder_coin.make_transparent()
+
 				else:
 					card.modulate = Color(1, 0, 0, 1)
 			else:

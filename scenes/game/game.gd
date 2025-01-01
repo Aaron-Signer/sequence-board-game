@@ -119,10 +119,10 @@ func play_card(player_move: PlayerMove):
 		current_player.remove_card_from_hand(player_move.card)
 		current_player.draw_hand()
 
+# Draw card button
 func _on_button_pressed():
 	var drawn_card_value = deck.pop_back()
 	current_player.add_card_to_hand(drawn_card_value, current_player)
-	current_player.draw_hand()
 	get_next_player()
 	
 func get_next_player() -> void:
